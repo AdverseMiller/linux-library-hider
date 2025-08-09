@@ -18,9 +18,8 @@ static int pre_show_map_vma(struct kprobe *p, struct pt_regs *regs)
 	if (!vma || !vma->vm_file) return 0;
 
     if (strcmp(vma->vm_file->f_path.dentry->d_name.name, target_lib) == 0) {
-		printk("MATCH\n");
 		unsigned long ret = ((unsigned long*)regs->sp)[0];
-        regs->ip = ret;
+        regs->ip = ret; //jump to function end
         return 1;  
     }
 
